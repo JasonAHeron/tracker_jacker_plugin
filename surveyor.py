@@ -21,10 +21,10 @@ class Trigger:
                  frame_type=None,
                  frame=None,
                  **kwargs):
-
-        print('\tdev_id = {}, dev_type = {}, vendor = {}, '
-              'power = {}, bssid = {}, ssid = {}, channel = {}'
-              'frame_type = {}'
-              .format(dev_id, dev_type, vendor,
-                      power, bssid, ssid, channel,
-                      frame_type))
+        if dev_type != 'ssid' and ssid == 'GoogleGuest-Legacy':
+            print('\tdev_id = {}, dev_type = {}, vendor = {}, '
+                'power = {}, bssid = {}, ssid = {}, channel = {}'
+                'frame_type = {}'
+                .format(dev_id, dev_type, vendor,
+                        power, bssid, ssid, channel,
+                        frame_type))
