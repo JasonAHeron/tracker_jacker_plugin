@@ -1,30 +1,43 @@
-__apiversion__ = 1
-__config__ = {'power': -100, 'log_level': 'ERROR', 'trigger_cooldown': 1}
+import sys
+import yaml
+import time
+import logging
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
+def parse_wifi_map(map_path):
+    with open(map_path, 'r') as f:
+        data = f.read()
 
-class Trigger:
-    def __init__(self):
-        pass
+    wifi_map = yaml.load(data)
+    devices = set()
 
-    def __call__(self,
-                 dev_id=None,
-                 dev_type=None,
-                 num_bytes=None,
-                 data_threshold=None,
-                 vendor=None,
-                 power=None,
-                 power_threshold=None,
-                 bssid=None,
-                 ssid=None,
-                 iface=None,
-                 channel=None,
-                 frame_type=None,
-                 frame=None,
-                 **kwargs):
-        if dev_type != 'ssid' and ssid == 'iCrunch':
-            print('\tdev_id = {}, dev_type = {}, vendor = {}, '
-                'power = {}, bssid = {}, ssid = {}, channel = {}'
-                'frame_type = {}'
-                .format(dev_id, dev_type, vendor,
-                        power, bssid, ssid, channel,
-                        frame_type))
+    for ssid in wifi_map:
+        print('ssid = {}'.format(ssid))
+        ssid_node = wifi_map[ssid]
+        for bssid in ssid_node:
+            print('\tbssid = {}'.format(bssid))
+            bssid_node = ssid_node[bssid]
+            if 'devices' in bssid_node:
+                for device in bssid_node['devices']:
+                    devices |= {device}
+                    print('\t\tdevice = {}'.format(device))
+
+    print('\n\nSSID count: {}, Device count: {}'.format(len(wifi_map), len(devices)))
+
+class Event(FileSystemEventHandler):
+    def on_modified(self, event):
+        if event.src_path.endswith('wifi_map.yaml'):
+            parse_wifi_map('wifi_map.yaml')
+
+if __name__ == "__main__":
+    event_handler = Event()
+    observer = Observer()
+    observer.schedule(event_handler, '.', recursive=True)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()
