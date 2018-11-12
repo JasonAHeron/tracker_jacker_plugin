@@ -12,7 +12,6 @@ def parse_wifi_map(map_path):
     wifi_map = yaml.load(data)
     devices = set()
 
-    print(data)
     if not wifi_map:
         return
 
@@ -20,7 +19,7 @@ def parse_wifi_map(map_path):
         print('ssid = {}'.format(ssid))
         ssid_node = wifi_map[ssid]
         for bssid in ssid_node:
-            print('\tbssid = {}'.format(bssid))
+            # print('\tbssid = {}'.format(bssid))
             bssid_node = ssid_node[bssid]
             if 'devices' in bssid_node:
                 for device in bssid_node['devices']:
