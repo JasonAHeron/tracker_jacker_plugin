@@ -16,6 +16,7 @@ def parse_wifi_map(map_path):
     if not wifi_map:
         return
 
+    os.system('clear')
     for ssid in wifi_map:
         print('ssid = {}'.format(ssid))
         ssid_node = wifi_map[ssid]
@@ -28,7 +29,6 @@ def parse_wifi_map(map_path):
                     print('\t\tdevice = {}'.format(device))
 
     print('\n\nSSID count: {}, Device count: {}'.format(len(wifi_map), len(devices)))
-    os.system('clear')
 
 class Event(FileSystemEventHandler):
     def on_modified(self, event):
