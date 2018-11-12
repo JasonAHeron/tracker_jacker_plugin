@@ -26,7 +26,7 @@ def parse_wifi_map(map_path):
             if 'devices' in bssid_node:
                 for device in bssid_node['devices']:
                     devices |= {device}
-                    print('\t\tdevice = {}'.format(device))
+                    print('\tdevice = {}, vendor = {}'.format(device, device['vendor']))
 
     print('\n\nSSID count: {}, Device count: {}'.format(len(wifi_map), len(devices)))
 
