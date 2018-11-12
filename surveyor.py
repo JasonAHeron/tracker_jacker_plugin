@@ -20,8 +20,7 @@ def parse_wifi_map(map_path):
     print('*' * 40)
     for ssid in wifi_map:
         ssid_node = wifi_map[ssid]
-        print(ssid_node)
-        print('ssid = {}, vendor = {}'.format(ssid, ssid_node['vendor']))
+        print('ssid = {}'.format(ssid))
         for bssid in ssid_node:
             # print('\tbssid = {}'.format(bssid))
             bssid_node = ssid_node[bssid]
