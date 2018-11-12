@@ -25,8 +25,8 @@ def parse_wifi_map(map_path):
             bssid_node = ssid_node[bssid]
             if 'devices' in bssid_node:
                 for device in bssid_node['devices']:
-                    print ssid_node
-                    print bssid_node
+                    print(ssid_node)
+                    print(bssid_node)
                     devices |= {device}
                     print('\tdevice = {}, vendor = {}'.format(device, bssid_node['devices'][device]['vendor']))
 
