@@ -21,7 +21,7 @@ class Trigger:
                  frame_type=None,
                  frame=None,
                  **kwargs):
-        if dev_type != 'ssid' and ssid == 'GoogleGuest-Legacy':
+        if dev_type != 'ssid' and ssid == 'iCrunch':
             print('\tdev_id = {}, dev_type = {}, vendor = {}, '
                 'power = {}, bssid = {}, ssid = {}, channel = {}'
                 'frame_type = {}'
