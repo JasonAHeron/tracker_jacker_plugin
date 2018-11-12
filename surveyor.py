@@ -17,16 +17,15 @@ def parse_wifi_map(map_path):
         return
 
     os.system('clear')
+    print('*' * 40)
     for ssid in wifi_map:
-        print('ssid = {}'.format(ssid))
         ssid_node = wifi_map[ssid]
+        print('ssid = {}, vendor = {}'.format(ssid, ssid_node['vendor']))
         for bssid in ssid_node:
             # print('\tbssid = {}'.format(bssid))
             bssid_node = ssid_node[bssid]
             if 'devices' in bssid_node:
                 for device in bssid_node['devices']:
-                    print(ssid_node)
-                    print(bssid_node)
                     devices |= {device}
                     print('\tdevice = {}, vendor = {}'.format(device, bssid_node['devices'][device]['vendor']))
 
