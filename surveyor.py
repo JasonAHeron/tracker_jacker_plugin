@@ -12,6 +12,10 @@ def parse_wifi_map(map_path):
     wifi_map = yaml.load(data)
     devices = set()
 
+    print(data)
+    if not wifi_map:
+        return
+
     for ssid in wifi_map:
         print('ssid = {}'.format(ssid))
         ssid_node = wifi_map[ssid]
